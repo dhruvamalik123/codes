@@ -1,0 +1,343 @@
+object VariableAndStringDemo {
+
+  def main(args: Array[String]) {
+
+    // Declaring variables using var and val
+
+    var mutableVariable: Int = 10
+
+    val immutableVariable: String = "Hello, world!"
+
+    println(s"Mutable variable value: $mutableVariable")
+
+    println(s"Immutable variable value: $immutableVariable")
+
+    // Changing the value of the mutable variable
+
+    mutableVariable = 20
+
+    println(s"New mutable variable value: $mutableVariable")
+
+    // String functions
+
+    val str1: String = "Scala is a functional programming language"
+
+    val str2: String = " and it runs on the Java Virtual Machine"
+
+    // String concatenation using '+'
+
+    val str3: String = str1 + str2
+
+    println(s"Concatenated string: $str3")
+
+    // String length
+
+    val strLength: Int = str1.length()
+
+    println(s"Length of '$str1' is $strLength")
+
+    // String substring
+
+    val substring: String = str1.substring(0, 5)
+
+    println(s"Substring of '$str1' from index 0 to 5 is '$substring'")
+
+    // String replace
+
+    val replacedString: String = str1.replace("functional", "object-oriented")
+
+    println(s"Replaced string: $replacedString")
+
+  }
+
+}
+
+____________________________________________
+
+object ConditionalDemo {
+
+  def main(args: Array[String]) {
+
+    // If-else statement
+
+    val number: Int = 5
+
+    if (number > 0) {
+
+      println("The number is positive")
+
+    } else {
+
+      println("The number is not positive")
+
+    }
+
+    // Nested if statement
+
+    val age: Int = 20
+
+    val gender: String = "female"
+
+    if (age >= 18) {
+
+      if (gender == "male") {
+
+        println("You are an adult male")
+
+      } else {
+
+        println("You are an adult female")
+
+      }
+
+    } else {
+
+      println("You are not an adult")
+
+    }
+
+    // Conditional ladder
+
+    val grade: String = "B+"
+
+    if (grade == "A+") {
+
+      println("You got an A+ grade")
+
+    } else if (grade == "A") {
+
+      println("You got an A grade")
+
+    } else if (grade == "B+") {
+
+      println("You got a B+ grade")
+
+    } else if (grade == "B") {
+
+      println("You got a B grade")
+
+    } else {
+
+      println("You got a grade lower than B")
+
+    }
+
+  }
+
+}
+
+_______________________________
+
+object ScalaDemo {
+
+  def main(args: Array[String]) {
+
+    // For loop to calculate the sum of numbers in a list
+
+    val nums: List[Int] = List(1, 2, 3, 4, 5)
+
+    var sum: Int = 0
+
+    for (num <- nums) {
+
+      sum += num
+
+    }
+
+    println(s"The sum of numbers in $nums is $sum")
+
+    // While loop to calculate the factorial of a number
+
+    val num: Int = 5
+
+    var factorial: Int = 1
+
+    var i: Int = 1
+
+    while (i <= num) {
+
+      factorial *= i
+
+      i += 1
+
+    }
+
+    println(s"The factorial of $num is $factorial")
+
+    // Do-while loop to check if a number is prime
+
+    val n: Int = 7
+
+    var isPrime: Boolean = true
+
+    var j: Int = 2
+
+    do {
+
+      if (n % j == 0) {
+
+        isPrime = false
+
+      }
+
+      j += 1
+
+    } while (j <= n / 2 && isPrime)
+
+    if (isPrime) {
+
+      println(s"$n is a prime number")
+
+    } else {
+
+      println(s"$n is not a prime number")
+
+    }
+
+  }
+
+}
+
+____________________________
+object ArrayExample {
+
+  def main(args: Array[String]): Unit = {
+
+    // Creating an array
+
+    val numbers = Array(1, 2, 3, 4, 5)
+
+    // Accessing elements
+
+    println("First element: " + numbers(0))
+
+    // Updating elements
+
+    numbers(0) = 10
+
+    println("Updated first element: " + numbers(0))
+
+    // Finding the length
+
+    println("Array length: " + numbers.length)
+
+    // Using map function to square each element
+
+    val squaredNumbers = numbers.map(x => x * x)
+
+    println("Squared numbers: " + squaredNumbers.mkString(", "))
+
+    // Using filter function to get even numbers
+
+    val evenNumbers = numbers.filter(x => x % 2 == 0)
+
+    println("Even numbers: " + evenNumbers.mkString(", "))
+
+    // Using reduce function to sum all elements
+
+    val sum = numbers.reduce((x, y) => x + y)
+
+    println("Sum of numbers: " + sum)
+
+    // Using foreach function to print each element
+
+    println("Printing each element using foreach:")
+
+    numbers.foreach(println)
+
+    // Creating a multidimensional array using ofDim()
+
+    val multiArray = Array.ofDim[Int](2, 3)
+
+    multiArray(0)(0) = 1
+
+    multiArray(0)(1) = 2
+
+    multiArray(0)(2) = 3
+
+    multiArray(1)(0) = 4
+
+    multiArray(1)(1) = 5
+
+    multiArray(1)(2) = 6
+
+    // Printing the multidimensional array
+
+    println("Multidimensional array:")
+
+    for (i <- multiArray.indices) {
+
+      for (j <- multiArray(i).indices) {
+
+        print(multiArray(i)(j) + " ")
+
+      }
+
+      println()
+
+    }
+
+  }
+
+}
+_________________________
+
+object ScalaDemo {
+
+  def main(args: Array[String]) {
+
+    // Function to calculate the sum of two numbers
+
+    def sum(a: Int, b: Int): Int = {
+
+      return a + b
+
+    }
+
+    val result: Int = sum(5, 3)
+
+    println(s"The sum of 5 and 3 is $result")
+
+    // Function to print a message
+
+    def printMessage(): Unit = {
+
+      println("This is a message from a function")
+
+    }
+
+    printMessage()
+
+    // Function to return a Boolean value
+
+    def isEven(num: Int): Boolean = {
+
+      return num % 2 == 0
+
+    }
+
+    val num: Int = 6
+
+    val isNumEven: Boolean = isEven(num)
+
+    println(s"$num is even: $isNumEven")
+
+    // Function to take another function as an argument
+
+    def executeFunction(func: (Int, Int) => Int, a: Int, b: Int): Int = {
+
+      return func(a, b)
+
+    }
+
+    val res1: Int = executeFunction(sum, 10, 20)
+
+    val res2: Int = executeFunction((a: Int, b: Int) => a * b, 5, 6)
+
+    println(s"The result of sum function is $res1")
+
+    println(s"The result of a lambda function is $res2")
+
+  }
+
+}
