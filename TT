@@ -1,0 +1,788 @@
+Experiment 1 : LinkedList Implementation , search delete insert
+
+
+#include<bits/stdc++.h>
+using namespace std;
+class Node{
+public:
+	int val;
+	Node *next;
+	Node(){
+		this->val = INT_MIN;
+		this->next = NULL;
+	}
+	Node(int x){
+		val = x;
+		this->next = NULL;
+	}
+};
+class LL{
+	Node *head;
+public:
+	LL(){
+		this->head = NULL;
+	}
+	void insertAtBegin(int x){
+		Node *n1 = new Node(x);
+		n1->next = head;
+		head = n1;
+	}
+	void insertAtPos(int x, int pos){
+	    int n = getSize();
+	    if(pos>n || pos<0){return ;}
+	    if(pos==0){insertAtBegin(x); return ;}
+	    Node *p1 = head;
+	    while(--pos){
+	        p1 = p1->next;
+	    }
+	    Node *n1 = new Node(x);
+		n1->next = p1->next;
+		p1->next = n1;
+	}
+	void insertAtEnd(int x){
+		Node *n1 = new Node(x);
+		if(head==NULL){
+			head=n1;
+			return ;
+		}
+		Node *temp = head;
+		while(temp->next){
+			temp = temp->next;
+		}
+		temp->next = n1;
+	}
+	void deleteBegin(){
+		if(!head){
+			cout<<"Underflow: No data to delete.";
+			return ;
+		}
+		head = head->next;
+	}
+	void deleteAtPos(int x, int pos){
+	    int n = getSize();
+	    if(pos>n || pos<=0){return ;}
+	    if(pos==1){deleteBegin(); return ;}
+	    Node *p1 = head, *prev=nullptr;
+	    while(--pos){
+	        prev = p1;
+	        p1 = p1->next;
+	    }
+	    if(p1->val==x){
+	    prev->next = p1->next;
+	    free(p1);
+	    }
+	}
+	void deleteEnd(){
+		if(!head){
+			cout<<"Underflow: No data to delete.";
+			return ;
+		}
+		Node *temp = head;
+		while(temp->next->next){
+			temp = temp->next;
+		}
+		temp->next = NULL;
+	}
+	void printList(){
+		if(!head){
+			cout<<"Underflow: No data to print.";
+			return ;
+		}
+		Node *temp = head;
+
+		while(temp){
+			cout<<temp->val<<"->";
+			temp = temp->next;
+		}
+	}
+	Node* getHead(){return this->head;}
+	int getSize(){
+	    if(!head)return 0;
+	    if(!head->next)return 1;
+	    Node *curr = head;
+	    int ans=0;
+	    while(curr){
+	        curr  = curr->next;
+	        ans++;
+	    }
+	    return ans;
+	}
+};
+int main(){
+	LL l1;
+	int value;
+	cout<<endl<<"Enter the Element to be inserted ::-";
+	cin>>value;
+	l1.insertAtEnd(value);	
+	l1.printList();		
+	cout<<endl<<"Enter the Element to be inserted ::-";
+	cin>>value;
+	l1.insertAtEnd(value);
+	l1.printList();		// 
+	cout<<endl<<"Enter the Element to be inserted ::-";
+	cin>>value;
+	l1.insertAtEnd(value);
+	l1.printList();	
+	cout<<endl<<"Enter the Element to be inserted ::-";
+	cin>>value;
+	l1.insertAtEnd(value);
+	l1.printList();		
+	cout<<endl<<"Enter the Element to be inserted ::-";
+	cin>>value;
+	l1.insertAtEnd(value);
+	l1.printList();
+	cout<<endl<<"Enter the Element to be inserted ::-";
+	cin>>value;
+	l1.insertAtEnd(value);
+	l1.printList();
+	int position;
+	cout<<endl<<"Enter the Element to be inserted and the position::-";
+	cin>>value;
+	cin>>position;
+	l1.insertAtPos(value,position);
+	l1.printList();
+	cout<<endl<<"Enter the Element to be deleted and the position::-";
+	cin>>value;
+	cin>>position;
+	l1.deleteAtPos(value,position);
+	l1.printList();
+	return 0;
+}
+
+-----------------------------------------------------------------------------------------------------------------------
+Experiment 2: Reverse and add Linked List
+
+
+#include<iostream>
+#include<math.h>
+using namespace std;
+class node{
+	public:
+	int data;
+	node * next;
+	node(int val){
+		data=val;
+		next=NULL;
+	}
+};
+void insert(node *&head,int val){
+	node * n=new node(val);
+	if(head==NULL){
+		head=n;
+		return ;
+	}
+	node *temp=head;
+	while(temp->next!=NULL){
+		temp=temp->next;
+	}
+	temp->next=n;
+}
+void display(node *head){
+    node * temp =head;
+    while(temp!=NULL){
+        cout<<temp->data<<"->";
+        temp=temp->next;
+    }
+    cout<<"NULL";   
+}
+void reverse(node* &head) {
+        node* current = head;
+        node *prev = NULL, *next = NULL; 
+        while (current != NULL) {
+            next = current->next;
+            current->next = prev;
+            prev = current;
+            current = next;
+        }
+        head = prev;
+    }
+int digit(node* &head) {
+	int d =0;
+	node* curr_ptr = head;
+	for(int i =2; i >= 0; i--) {
+		d += pow(10, i) * curr_ptr->data;
+		curr_ptr = curr_ptr->next;
+	}	
+	return d;
+}
+void mod1(node* &head, int sum) {
+	int d;
+	while(sum != 0){
+		d = sum % 10;
+		sum = sum/10;
+		insert(head, d);
+	}	
+}
+int main(){
+	node * head=NULL;
+	node *head1= NULL;
+	node *head2= NULL;	
+	cout<<"First Linked List: ";
+	insert(head,7);			//First list
+	insert(head,1);
+	insert(head,5);
+	display(head); cout<<endl;
+	cout<<"Second Linked List: ";
+	insert(head1,5);		//Second List
+	insert(head1,9);
+	insert(head1,2);
+	display(head1);
+	cout<<endl<<endl;
+	cout<<"Reversed First Linked List: ";
+	reverse(head);
+	display(head);
+	int val1 = digit(head);
+	cout<<endl;
+	cout<<"Reversed Second Linked List: ";
+	reverse(head1);
+	display(head1);
+	int val2 = digit(head1);
+	cout<<endl<<endl;
+	int sum = val1 + val2;
+	cout<<"Sum of reversed Linked List: "<<sum;
+	cout<<endl;
+	mod1(head2, sum);
+	cout<<"Reversed Linked of Sum: ";
+	display(head2);
+	return 0;
+}
+
+-------------------------------------------------------------------------------------------------------------
+Experiment 3:- Check if palindrome
+
+
+#include <bits/stdc++.h>
+using namespace std;
+string isPalindrome(string S)
+{
+    for (int i = 0; i < S.length() / 2; i++) {
+        if (S[i] != S[S.length() - i - 1]) {
+            return "No , "+S+" is not a palindrome string";
+        }
+    }
+    return "Yes , "+S+" is a palindrome string";
+}
+ 
+// Driver Code
+int main()
+{
+	string names[4]={"Palak","ufotofu","amchur","racecar"};
+	for(int i=0;i<4;i++){
+		cout<<isPalindrome(names[i])<<endl;
+	}
+    return 0;
+}
+-------------------------------------------------------------------------------------------------------------
+Experiment 4: Create Text editor with find and replace
+
+
+#include <iostream>
+#include <cstring>
+
+using namespace std;
+
+const int MAX_SIZE = 1000;
+
+void findAndReplace(char text[], char oldStr[], char newStr[]) {
+    int textLen = strlen(text);
+    int oldStrLen = strlen(oldStr);
+    int newStrLen = strlen(newStr);
+
+    // Traverse the text string
+    for (int i = 0; i <= textLen - oldStrLen; i++) {
+        bool match = true;
+        // Check if the current substring matches the oldStr
+        for (int j = 0; j < oldStrLen; j++) {
+            if (text[i+j] != oldStr[j]) {
+                match = false;
+                break;
+            }
+        }
+        // If a match is found, replace the oldStr with the newStr
+        if (match) {
+            // Shift the remaining characters in the text to make space for the newStr
+            for (int j = textLen - 1; j >= i + oldStrLen; j--) {
+                text[j + newStrLen - oldStrLen] = text[j];
+            }
+            // Copy the newStr into the text string
+            for (int j = 0; j < newStrLen; j++) {
+                text[i+j] = newStr[j];
+            }
+            // Update the length of the text string
+            textLen += newStrLen - oldStrLen;
+        }
+    }
+}
+
+int main() {
+    char text[MAX_SIZE];
+    char oldStr[MAX_SIZE];
+    char newStr[MAX_SIZE];
+
+    // Read the text, oldStr, and newStr from the user
+    cout << "Enter Any String:: ";
+    cin.getline(text, MAX_SIZE);
+
+    cout << "Which Substring to be Searched ?: ";
+    cin.getline(oldStr, MAX_SIZE);
+
+    cout << "Specify Replacement??: ";
+    cin.getline(newStr, MAX_SIZE);
+
+    // Find and replace the oldStr with the newStr in the text
+    findAndReplace(text, oldStr, newStr);
+
+    // Print the updated text
+    cout << "Resulting String: " << text << endl;
+
+    return 0;
+}
+
+-------------------------------------------------------------------------------------------------------------------------------------------
+Experiment 5: Character sorted in linkedlist , check if present in list
+
+
+#include <iostream>
+using namespace std;
+struct Node{
+	public:
+		char data;
+		Node *next;
+};
+class linkedList{
+	public:
+		Node *head;
+		Node *tail;
+		int size=0;
+		linkedlist(){
+			head=NULL;
+			tail=NULL;
+		}
+		void insertLast(char data){
+			Node *node=new Node;
+			node->data=data;
+			node->next=NULL;
+			size++;
+			if(head == NULL){
+				head=node;
+				tail=node;
+			}
+			else{
+				tail->next=node;
+				tail=tail->next;
+			}
+		}
+		void display(){
+			Node *node=head;
+
+      		cout<<endl;
+			while(node!=NULL){
+				cout<<node->data<<" ";
+				node=node->next;
+			}
+		}
+void search(char c){
+	Node *node=head;
+	while(node!=NULL){
+		if(node->data==c){
+			cout<<endl<<c<<" was found";
+			return;}
+			else{
+				node=node->next;
+			}
+    }
+		cout<<endl<<c<<" was not found";
+	}
+};
+int main(){
+	linkedList ll;
+	int length;
+	cout<<"Enter list length :: ";
+	cin>>length;
+	char ch;
+	for(int i=0;i<length;i++){
+		cout<<"Enter the character :: ";
+		cin>>ch;
+		ll.insertLast(ch);
+	}
+	cout<<"which Character to searched :: ";
+	cin>>ch;
+	cout<<"Created List :: ";
+	ll.display();
+	ll.search(ch);
+}
+---------------------------------------------------------------------------------------------------------------------------
+Experiment 6 Create three linkedlists , roll no , name , course , cgpa , find common roll number
+
+
+#include <bits/stdc++.h>
+using namespace std;
+class Database
+{
+public:
+    vector<pair<int, string>> l1;
+    vector<pair<int, string>> l2;
+    vector<pair<int, int>> l3;
+    vector<int> finalList;
+    void insertDatatoL1(int roll_no, string sname)
+    {
+        l1.push_back(make_pair(roll_no, sname));
+    }
+    void insertDatatoL2(int roll_no, string cname)
+    {
+        l2.push_back(make_pair(roll_no, cname));
+    }
+    void insertDatatoL3(int roll_no, int cgpa)
+    {
+        l3.push_back(make_pair(roll_no, cgpa));
+    }
+    void sort_lists()
+    {
+        sort(l1.begin(), l1.end());
+        sort(l2.begin(), l2.end());
+        sort(l3.begin(), l3.end());
+    }
+    void findCommonRoll()
+    {
+        int n1 = l1.size();
+        int n2 = l2.size();
+        int n3 = l3.size();
+        for (int i = 0; i < n1; i++)
+        {
+            for (int j = 0; j < n2; j++)
+            {
+                if (l1[i].first < l2[j].first)
+                {
+                    break;
+                }
+                if (l1[i].first == l2[j].first)
+                {
+                    for (int k = 0; k < n3; k++)
+                    {
+                        if (l1[i].first < l3[k].first)
+                        {
+                            break;
+                        }
+                        if (l1[i].first == l3[k].first)
+                        {
+                            finalList.push_back(l1[i].first);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    void printList()
+    {
+        for (auto x : finalList)
+        {
+            cout << x << " ";
+        }
+        cout << endl
+             << endl;
+    }
+};
+int main()
+{
+    Database d1;
+    int n1, n2, n3, temp1, temp3;
+    string temp2;
+    cout << "Enter how many entries you want to enter for List 1: ";
+    cin >> n1;
+    cout << "\nEnter Roll number & Student Name for List 1: " << endl;
+    for (int i = 0; i < n1; i++)
+    {
+        cin >> temp1 >> temp2;
+        d1.insertDatatoL1(temp1, temp2);
+    }
+    cout << "Enter how many entries you want to enter for List 2: ";
+    cin >> n2;
+    cout << "\nEnter Roll number & Course Name for List 2: " << endl;
+    for (int i = 0; i < n2; i++)
+    {
+        cin >> temp1 >> temp2;
+        d1.insertDatatoL2(temp1, temp2);
+    }
+    cout << "Enter how many entries you want to enter for List 3: ";
+    cin >> n3;
+    cout << "\nEnter Roll number & CGPA for List 3: " << endl;
+    for (int i = 0; i < n3; i++)
+    {
+        cin >> temp1 >> temp3;
+        d1.insertDatatoL3(temp1, temp3);
+    }
+    d1.findCommonRoll();
+    cout<<endl;
+    cout<<"The common Roll numbers are: ";
+    d1.printList();
+    cout<<endl;
+    return 0;
+}
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+Experiment 7 Represent the string in form such that searching is minimal
+
+
+#include <iostream>
+#include <unordered_map>
+
+using namespace std;
+
+class TrieNode {
+public:
+    unordered_map<char, TrieNode*> children;
+    bool isEndOfWord;
+    
+    TrieNode() {
+        isEndOfWord = false;
+    }
+};
+
+class Trie {
+private:
+    TrieNode* root;
+    
+public:
+    Trie() {
+        root = new TrieNode();
+    }
+    
+    void insert(string word) {
+        TrieNode* current = root;
+        for (char c : word) {
+            if (current->children.find(c) == current->children.end()) {
+                current->children[c] = new TrieNode();
+            }
+            current = current->children[c];
+        }
+        current->isEndOfWord = true;
+    }
+    
+    bool search(string word) {
+        TrieNode* current = root;
+        for (char c : word) {
+            if (current->children.find(c) == current->children.end()) {
+                return false;
+            }
+            current = current->children[c];
+        }
+        return current->isEndOfWord;
+    }
+};
+
+int main() {
+    Trie trie;
+    int numInputs;
+    cout << "Enter the number of inputs: ";
+    cin >> numInputs;
+    
+    string inputString;
+    for (int i = 1; i <= numInputs; i++) {
+        cout << "Enter input #" << i << ": ";
+        cin >> inputString;
+        trie.insert(inputString);
+    }
+    
+    string searchString;
+    cout << "Enter a string to search: ";
+    cin >> searchString;
+    cout << "Search for '" << searchString << "': " << (trie.search(searchString) ? "Found" : "Not Found") << endl;
+    
+    return 0;
+}
+----------------------------------------------------------------------------------------------------------------------------------------------
+Experiment 8 :- Sort Array without comparing
+
+
+#include <bits/stdc++.h>
+using namespace std;
+void count_sort(vector<int>&v){
+map<int,int>um;
+for(auto &x : v){
+um[x]++;
+}
+int itr = 0;
+for(auto &x : um){
+int num = x.first;
+int times = x.second;
+while(times--){
+v[itr++] = num;
+}
+}
+}
+void print1d(vector<int>&v){
+for(auto &x : v){
+cout<<x<<" ";
+}
+cout<<"\n";
+}
+
+int main()
+{
+	int size;
+	cout<<"Enter the number of elements in the list :: ";
+	cin>>size;
+	int value;
+	vector<int>v ;
+	for(int i=0;i<size;i++){
+		cout<<"Enter value :: ";
+		cin>>value;
+		v.insert(v.end(),value);
+	}
+cout << "The elements are : ";
+print1d(v);
+count_sort(v);
+cout << "The elements after sorting are : ";
+print1d(v);
+return 0;
+}
+----------------------------------------------------------------------------------------------------------------------------------------------
+Experiment 9 : Apply sorting algo with O(n^2) complexity
+
+
+#include <iostream>
+using namespace std;
+struct Node {
+    int data;
+    Node* next;
+};
+void swap(Node* a, Node* b) {
+    int temp = a->data;
+    a->data = b->data;
+    b->data = temp;
+}
+void bubbleSort(Node* head, int n) {
+    Node* curr;
+    bool swapped;
+    for (int i = 0; i < n-1; i++) {
+        curr = head;
+        swapped = false;
+        for (int j = 0; j < n-i-1; j++) {
+            if (curr->data > curr->next->data) {
+                swap(curr, curr->next);
+                swapped = true;
+            }
+            curr = curr->next;
+        }
+        if (!swapped)
+            break;
+    }
+}
+void printList(Node* head) {
+    while (head != NULL) {
+        cout << head->data << " ";
+        head = head->next;
+    }
+}
+int main() {
+    int n, marks;
+    cout << "Enter the number of entries: ";
+    cin >> n;
+    Node* head = NULL;
+    Node* tail = NULL;
+    for (int i = 0; i < n; i++) {
+        cout << "Enter the marks for entry " << i+1 << ": ";
+        cin >> marks;
+        Node* newNode = new Node;
+        newNode->data = marks;
+        newNode->next = NULL;
+        if (head == NULL) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            tail->next = newNode;
+            tail = newNode;
+        }
+    }
+    cout<<"List before sorting:: ";
+    printList(head);
+    bubbleSort(head, n);
+    cout <<endl<< "Sorted list of marks: ";
+    printList(head);  
+    return 0;
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+Experiment 10: two arrays are in descending order , reverse the array sing data structure
+
+#include <iostream>
+using namespace std;
+struct StackNode {
+    int data;
+    StackNode* next;
+};
+class Stack {
+    private:
+        StackNode* top;
+        int size;
+    public:
+        Stack() {
+            top = NULL;
+            size = 0;
+        }
+        void push(int value) {
+            StackNode* newNode = new StackNode;
+            newNode->data = value;
+            newNode->next = top;
+            top = newNode;
+            size++;
+        }
+        int pop() {
+            if (isEmpty()) {
+                cout << "Stack underflow!" << endl;
+                return -1;
+            }
+            StackNode* temp = top;
+            int value = temp->data;
+            top = top->next;
+            delete temp;
+            size--;
+            return value;
+        }
+        bool isEmpty() {
+            return (top == NULL);
+        }
+        int getSize() {
+            return size;
+        }
+};
+void buildStack(Stack &S, int arr[], int n) {
+    for (int i = 0; i < n; i++) {
+        S.push(arr[i]);
+    }
+}
+void reverseArray(int arr1[], int arr2[], int n) {
+    Stack S;   
+    buildStack(S, arr1, n);
+    for (int i = 0; i < n; i++) {
+        arr1[i] = S.pop();
+    }
+    buildStack(S, arr2, n);
+    for (int i = 0; i < n; i++) {
+        arr2[i] = S.pop();
+    }
+}
+int main() {
+    int n;
+    cout << "Enter the size of the arrays: ";
+    cin >> n;   
+    int arr1[n], arr2[n];
+    cout << "Enter the marks for the first array (in descending order): "<<endl;
+    for (int i = 0; i < n; i++) {
+        cin >> arr1[i];
+    }
+    cout << "Enter the marks for the second array (in descending order): "<<endl;
+    for (int i = 0; i < n; i++) {
+        cin >> arr2[i];
+    }
+    reverseArray(arr1, arr2, n);
+    cout << "The marks in ascending order:" << endl;
+    for (int i = 0; i < n; i++) {
+        cout << arr1[i] << " ";
+    }
+    cout << endl;
+    for (int i = 0; i < n; i++) {
+        cout << arr2[i] << " ";
+    }
+    cout << endl;
+    return 0;
+}
+--------------------------------------------------------------------------------------------------------------------------------------------- 
